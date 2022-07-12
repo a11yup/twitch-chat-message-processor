@@ -4,8 +4,15 @@
   "description": "A small utility that processes Twitch chat message data from tmi.js and outputs prendered HTML and other metadata that can be used for custom chat overlays.",
   "source": "src/index.js",
   "module": "dist/module.js",
+  "browser": "dist/browser.js",
+  "targets": {
+    "browser": {
+      "includeNodeModules": true,
+      "optimize": true
+    }
+  },
   "scripts": {
-    "build": "parcel build src/index.js"
+    "build": "parcel build"
   },
   "author": "@a11yup",
   "license": "GPL-3.0-or-later",
