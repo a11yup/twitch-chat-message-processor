@@ -8,7 +8,7 @@
   "targets": {
     "browser": {
       "includeNodeModules": true,
-      "optimize": true
+      "outputFormat": "esmodule"
     }
   },
   "scripts": {
