@@ -8,6 +8,12 @@ const EMOTE_REGEX_PART_2 = "(?:(?=\\s)|$)";
 const BTTV_URL_PREFIX = "https://cdn.betterttv.net/emote";
 const FFZ_URL_PREFIX = "https://cdn.betterttv.net/frankerfacez_emote";
 
+// JS standard slice function does not work well with strings that contain
+// unicode characters represented by more than one byte. This trick helps solve
+// that problem:
+const unicodeSlice = (string, start, end) =>
+  [...string].slice(start, end).join("");
+
 /*
   This function takes the Twitch message's `emotes` data to inject
   one `<img>` tag per emote into the message that.
@@ -34,7 +40,11 @@ const replaceTwitchStandardEmotes = (message, emotes) => {
   for (const [emoteId, occurenceIndices] of Object.entries(emotes)) {
     const [startIndex, endIndex] = occurenceIndices[0].split("-");
 
-    const emoteText = message.slice(Number(startIndex), Number(endIndex) + 1);
+    const emoteText = unicodeSlice(
+      message,
+      Number(startIndex),
+      Number(endIndex) + 1
+    );
 
     replacementMap[
       emoteText
