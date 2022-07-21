@@ -1,6 +1,6 @@
 {
   "name": "twitch-chat-message-processor",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A small utility that processes Twitch chat message data from tmi.js and outputs prendered HTML and other metadata that can be used for custom chat overlays.",
   "source": "src/index.js",
   "module": "dist/module.js",
