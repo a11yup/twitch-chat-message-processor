@@ -8,8 +8,8 @@ const EMOTE_REGEX_PART_2 = "(?:(?=\\s)|$)";
 const BTTV_URL_PREFIX = "https://cdn.betterttv.net/emote";
 const FFZ_URL_PREFIX = "https://cdn.betterttv.net/frankerfacez_emote";
 
-// JS standard slice function does not work well with strings that contain
-// unicode characters represented by more than one byte. This trick helps solve
+// JavaScript's standard slice function does not work well with strings that contain
+// unicode characters represented by more than one code unit. This trick helps solve
 // that problem:
 const unicodeSlice = (string, start, end) =>
   [...string].slice(start, end).join("");
@@ -66,7 +66,7 @@ const replaceTwitchStandardEmotes = (message, emotes) => {
 };
 
 /*
-  This function scans the message text for occurences of bttv emote codes.
+  This function scans the message text for occurences of bttv global emote codes.
 
   It uses the global bttv emotes list and for each emote code (e.g. SourPls),
   it replaces that code with an `<img>` tag with the URL to that bttv emote.
@@ -98,6 +98,12 @@ const replaceBTTVGlobalEmotes = async (message) => {
   return result;
 };
 
+/*
+  This function scans the message text for occurences of bttv channel emote codes.
+
+  It uses the channel's bttv emotes list and for each emote code (e.g. myChannelEmote),
+  it replaces that code with an `<img>` tag with the URL to that bttv emote.
+*/
 const replaceBTTVChannelEmotes = async (message) => {
   const bttvChannelLookupTable = await bttv.getBttvChannelLookupTable();
   const bttvChannelEmoteCodes = Object.keys(bttvChannelLookupTable);
@@ -125,6 +131,12 @@ const replaceBTTVChannelEmotes = async (message) => {
   return result;
 };
 
+/*
+  This function scans the message text for occurences of FrankerFaceZ emote codes.
+
+  It uses the global FrankerFaceZ emotes list and for each emote code (e.g. OMEGALUL),
+  it replaces that code with an `<img>` tag with the URL to that FFZ emote.
+*/
 const replaceFFZChannelEmotes = async (message) => {
   const ffzChannelLookupTable = await bttv.getFfzChannelLookupTable();
   const ffzChannelEmoteCodes = Object.keys(ffzChannelLookupTable);
